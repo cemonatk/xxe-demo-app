@@ -1,11 +1,11 @@
-FROM maven:3.8.4-openjdk-11-slim AS build
+FROM maven:3.8.4-openjdk-11 AS build
 WORKDIR /app
 COPY pom.xml .
 
 COPY src ./src
 RUN mvn -f pom.xml clean package || cat /root/.m2/repository/org/springframework/boot/spring-boot-starter-parent/2.7.0/spring-boot-starter-parent-2.7.0.pom
 
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre
 WORKDIR /app
 
 RUN useradd -m admin -s /bin/bash && \
